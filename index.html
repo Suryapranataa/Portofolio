@@ -269,6 +269,7 @@
             background-color: var(--card-bg);
             border: 1px solid #334155;
             aspect-ratio: 16 / 10;
+            cursor: pointer; /* Menandakan gambar bisa diklik */
         }
 
         .gallery-item img {
@@ -313,6 +314,76 @@
             font-weight: 500;
         }
 
+        /* --- BARU: CSS untuk Pop-up Modul Gambar (Lightbox Overlay) --- */
+        .image-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.95);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-popup-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-box {
+            position: relative;
+            max-width: 85%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .popup-box img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .image-popup-overlay.active .popup-box img {
+            transform: scale(1);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.75rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .popup-close:hover {
+            color: var(--accent);
+        }
+
+        .popup-caption {
+            margin-top: 1rem;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
         /* Contact Section */
         .contact-container {
             text-align: center;
@@ -353,6 +424,7 @@
             .about-content { grid-template-columns: 1fr; gap: 2rem; }
             #hero h1 { font-size: 2.5rem; }
             .contact-container .btn { display: block; margin: 1rem auto; width: fit-content; }
+            .popup-box { max-width: 95%; }
         }
     </style>
 </head>
@@ -508,6 +580,15 @@
         </div>
     </section>
 
+    <!-- --- BARU: Struktur HTML untuk Container Pop-up Gambar --- -->
+    <div class="image-popup-overlay" id="imagePopup">
+        <div class="popup-box">
+            <button class="popup-close" id="popupClose"><i class="fas fa-times"></i></button>
+            <img src="" alt="Popup View" id="popupImg">
+            <div class="popup-caption" id="popupCaption"></div>
+        </div>
+    </div>
+
     <!-- Contact Section -->
     <section id="contact">
         <div class="contact-container">
@@ -531,8 +612,9 @@
         <p>&copy; 2026 Muhammad Pandu Suryapranata.</p>
     </footer>
 
-    <!-- --- JAVASCRIPT LOGIC SWITCH BAHASA --- -->
+    <!-- --- JAVASCRIPT LOGIC --- -->
     <script>
+        // --- 1. LOGIC SWITCH BAHASA ---
         const langBtn = document.getElementById('langBtn');
         const langText = document.getElementById('langText');
         const translateElements = document.querySelectorAll('.translate');
@@ -557,6 +639,53 @@
         langBtn.addEventListener('click', () => {
             currentLang = currentLang === 'id' ? 'en' : 'id';
             applyLanguage(currentLang);
+        });
+
+
+        // --- 2. BARU: LOGIC JAVASCRIPT POP-UP GAMBAR (LIGHTBOX) ---
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const imagePopup = document.getElementById('imagePopup');
+        const popupImg = document.getElementById('popupImg');
+        const popupCaption = document.getElementById('popupCaption');
+        const popupClose = document.getElementById('popupClose');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const title = item.querySelector('.gallery-overlay h4').innerText;
+                
+                // Set sumber gambar dan caption di jendela pop-up
+                popupImg.src = img.src;
+                popupCaption.innerText = title;
+                
+                // Tampilkan pop-up
+                imagePopup.classList.add('active');
+                // Mengunci scroll body saat pop-up aktif
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        // Menutup pop-up saat tombol 'X' diklik
+        popupClose.addEventListener('click', closePopup);
+
+        // Menutup pop-up saat area luar gambar (background hitam) diklik
+        imagePopup.addEventListener('click', (e) => {
+            if (e.target === imagePopup) {
+                closePopup();
+            }
+        });
+
+        function closePopup() {
+            imagePopup.classList.remove('active');
+            // Mengembalikan scroll body semula
+            document.body.style.overflow = ''; 
+        }
+
+        // Menutup pop-up dengan tombol 'ESC' pada keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && imagePopup.classList.contains('active')) {
+                closePopup();
+            }
         });
     </script>
 </body>
