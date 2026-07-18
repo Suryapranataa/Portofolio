@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,7 @@
             --text-muted: #94a3b8;
             --accent: #38bdf8;
             --accent-hover: #0ea5e9;
+            --border-color: #334155;
         }
 
         * {
@@ -59,6 +60,12 @@
             text-decoration: none;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .nav-links {
             display: flex;
             list-style: none;
@@ -74,6 +81,27 @@
         }
 
         .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Tombol Pengubah Bahasa Web */
+        .lang-switch {
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            color: var(--text-main);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-switch:hover {
+            border-color: var(--accent);
             color: var(--accent);
         }
 
@@ -228,7 +256,7 @@
             border-radius: 4px;
         }
 
-        /* --- BARU: Gallery Showcase Section --- */
+        /* Gallery Showcase Section */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -286,6 +314,134 @@
             font-weight: 500;
         }
 
+        /* --- BARU: Gaya CSS untuk Kamar Tools Translator --- */
+        .translator-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+
+        .lang-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            background-color: #0f172a;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .swap-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .swap-btn:hover {
+            background-color: var(--accent);
+            color: #0f172a;
+            transform: rotate(180deg);
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .box textarea {
+            width: 100%;
+            height: 180px;
+            background-color: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            resize: none;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .box textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .box-actions {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .translate-action-row {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .loading-text {
+            color: var(--accent);
+            font-size: 0.9rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            background: rgba(30, 41, 59, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
         /* Contact Section */
         .contact-container {
             text-align: center;
@@ -321,7 +477,10 @@
         }
 
         @media (max-width: 768px) {
+            .nav-right { flex-direction: row-reverse; gap: 1rem; }
+            .nav-links { display: none; }
             .about-content { grid-template-columns: 1fr; gap: 2rem; }
+            .workspace { grid-template-columns: 1fr; }
             #hero h1 { font-size: 2.5rem; }
             .contact-container .btn { display: block; margin: 1rem auto; width: fit-content; }
         }
@@ -333,31 +492,47 @@
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">Muhammad Pandu Suryapranata</a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects Gallery</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#about" class="translate" data-id="Tentang" data-en="About">Tentang</a></li>
+                    <li><a href="#experience" class="translate" data-id="Pengalaman" data-en="Experience">Pengalaman</a></li>
+                    <li><a href="#projects" class="translate" data-id="Galeri Projek" data-en="Projects Gallery">Galeri Projek</a></li>
+                    <li><a href="#tools" class="translate" data-id="Alat Penerjemah" data-en="Translator Tool">Alat Penerjemah</a></li>
+                    <li><a href="#contact" class="translate" data-id="Kontak" data-en="Contact">Kontak</a></li>
+                </ul>
+                <button class="lang-switch" id="langBtn">
+                    <i class="fas fa-globe"></i> <span id="langText">EN</span>
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="hero">
-        <h1>Hi, I am <span style="color: var(--accent);">Muhammad Pandu Suryapranata</span></h1>
+        <h1>
+            <span class="translate" data-id="Halo, Saya" data-en="Hi, I am">Halo, Saya</span> 
+            <span style="color: var(--accent);">Muhammad Pandu Suryapranata</span>
+        </h1>
         <h2>IT Engineer</h2>
-        <a href="#contact" class="btn">Contact Me <i class="fas fa-arrow-right"></i></a>
+        <a href="#contact" class="btn">
+            <span class="translate" data-id="Hubungi Saya" data-en="Contact Me">Hubungi Saya</span> 
+            <i class="fas fa-arrow-right"></i>
+        </a>
     </section>
 
     <!-- About Section -->
     <section id="about">
-        <h2 class="section-title">About Me</h2>
+        <h2 class="section-title translate" data-id="Tentang Saya" data-en="About Me">Tentang Saya</h2>
         <div class="about-content">
             <div>
-                <p style="margin-bottom: 1rem;">Hi there! I'm an IT Application Operation Engineer working in the banking industry. My day-to-day job is all about making sure critical banking applications run smoothly, securely, and with zero downtime. I've got a solid background in managing Linux servers, databases (MySQL & SQL Server), and setting up monitoring tools like Zabbix and Grafana to keep track of system performance in real-time. I love messing around with Python to automate operational tasks and speed things up.</p>
+                <p style="margin-bottom: 1rem;" class="translate" 
+                   data-id="Halo di sana! Saya seorang IT Application Operation Engineer yang bekerja di industri perbankan. Pekerjaan sehari-hari saya adalah memastikan aplikasi perbankan yang bersifat kritis berjalan dengan lancar, aman, dan tanpa hambatan (zero downtime). Saya memiliki latar belakang yang kuat dalam mengelola server Linux, basis data (MySQL & SQL Server), serta mengonfigurasi alat pemantauan seperti Zabbix dan Grafana untuk memantau performa sistem secara real-time. Saya juga senang menggunakan Python untuk mengotomatiskan tugas-tugas operasional agar berjalan lebih cepat."
+                   data-en="Hi there! I'm an IT Application Operation Engineer working in the banking industry. My day-to-day job is all about making sure critical banking applications run smoothly, securely, and with zero downtime. I've got a solid background in managing Linux servers, databases (MySQL & SQL Server), and setting up monitoring tools like Zabbix and Grafana to keep track of system performance in real-time. I love messing around with Python to automate operational tasks and speed things up.">
+                   Halo di sana! Saya seorang IT Application Operation Engineer yang bekerja di industri perbankan. Pekerjaan sehari-hari saya adalah memastikan aplikasi perbankan yang bersifat kritis berjalan dengan lancar, aman, dan tanpa hambatan (zero downtime). Saya memiliki latar belakang yang kuat dalam mengelola server Linux, basis data (MySQL & SQL Server), serta mengonfigurasi alat pemantauan seperti Zabbix dan Grafana untuk memantau performa sistem secara real-time. Saya juga senang menggunakan Python untuk mengotomatiskan tugas-tugas operasional agar berjalan lebih cepat.
+                </p>
             </div>
             <div>
-                <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Technical Skills</h3>
+                <h3 style="font-size: 1.1rem; margin-bottom: 1rem;" class="translate" data-id="Keahlian Teknis" data-en="Technical Skills">Keahlian Teknis</h3>
                 <div class="skills-grid">
                     <div class="skill-tag"><i class="fab fa-linux"></i> Linux</div>
                     <div class="skill-tag"><i class="fab fa-windows"></i> Windows Server</div>
@@ -379,15 +554,19 @@
 
     <!-- Experience Section -->
     <section id="experience">
-        <h2 class="section-title">Experience</h2>
+        <h2 class="section-title translate" data-id="Pengalaman" data-en="Experience">Pengalaman</h2>
         <div class="projects-grid">
             
             <!-- Job 1 -->
             <div class="project-card">
                 <div>
                     <div class="project-icon"><i class="fas fa-tasks"></i></div>
-                    <h3>Administration at PUPR Government</h3>
-                    <p>Handled office administration tasks while providing comprehensive IT support for computer networks and other technical issues. Additionally, served as media support responsible for documenting company events and activities.</p>
+                    <h3 class="translate" data-id="Administrasi di Pemerintahan PUPR" data-en="Administration at PUPR Government">Administrasi di Pemerintahan PUPR</h3>
+                    <p class="translate" 
+                       data-id="Menangani tugas administrasi kantor sekaligus menyediakan dukungan IT yang komprehensif untuk jaringan komputer dan masalah teknis lainnya. Selain itu, bertindak sebagai media support yang bertanggung jawab mendokumentasikan acara dan kegiatan perusahaan."
+                       data-en="Handled office administration tasks while providing comprehensive IT support for computer networks and other technical issues. Additionally, served as media support responsible for documenting company events and activities.">
+                       Menangani tugas administrasi kantor sekaligus menyediakan dukungan IT yang komprehensif untuk jaringan komputer dan masalah teknis lainnya. Selain itu, bertindak sebagai media support yang bertanggung jawab mendokumentasikan acara dan kegiatan perusahaan.
+                    </p>
                 </div>
                 <div>
                     <div class="project-tech">
@@ -402,8 +581,12 @@
             <div class="project-card">
                 <div>
                     <div class="project-icon"><i class="fas fa-cogs"></i></div>
-                    <h3>IT Engineer at Bank</h3>
-                    <p>Was placed at the BRI Data Center as part of the application operations team. Besides managing the apps, I also handled troubleshooting whenever there was an error. Before fixing a problem, I usually checked the server or database logs to find out what caused it. I also built an internal website to store IDs and passwords it allows the team to copy-paste passwords for internal links and servers easily without actually revealing the text.</p>
+                    <h3 class="translate" data-id="IT Engineer di Bank" data-en="IT Engineer at Bank">IT Engineer di Bank</h3>
+                    <p class="translate" 
+                       data-id="Ditempatkan di Data Center BRI sebagai bagian dari tim operasional aplikasi. Selain mengelola aplikasi, saya juga menangani troubleshooting jika terjadi kendala. Sebelum memperbaiki masalah, saya terbiasa memeriksa log server atau basis data untuk mencari akar penyebabnya. Saya juga membangun situs web internal untuk menyimpan ID dan kata sandi yang memungkinkan tim menyalin kata sandi untuk tautan internal dan server dengan mudah tanpa menampilkan teks aslinya."
+                       data-en="Was placed at the BRI Data Center as part of the application operations team. Besides managing the apps, I also handled troubleshooting whenever there was an error. Before fixing a problem, I usually checked the server or database logs to find out what caused it. I also built an internal website to store IDs and passwords it allows the team to copy-paste passwords for internal links and servers easily without actually revealing the text.">
+                       Ditempatkan di Data Center BRI sebagai bagian dari tim operasional aplikasi. Selain mengelola aplikasi, saya juga menangani troubleshooting jika terjadi kendala. Sebelum memperbaiki masalah, saya terbiasa memeriksa log server atau basis data untuk mencari akar penyebabnya. Saya juga membangun situs web internal untuk menyimpan ID dan kata sandi yang memungkinkan tim menyalin kata sandi untuk tautan internal dan server dengan mudah tanpa menampilkan teks aslinya.
+                    </p>
                 </div>
                 <div>
                     <div class="project-tech">
@@ -424,35 +607,31 @@
         </div>
     </section>
 
-    <!-- --- BARU: Menu Gambar Project (Showcase Gallery) --- -->
+    <!-- Menu Gambar Project -->
     <section id="projects">
-        <h2 class="section-title">Featured Projects</h2>
+        <h2 class="section-title translate" data-id="Projek Pilihan" data-en="Featured Projects">Projek Pilihan</h2>
         <div class="gallery-grid">
             
-            <!-- Project Gambar 1 -->
             <div class="gallery-item">
-                <!-- Ganti src dengan link atau path gambar dashboard/project asli milikmu -->
                 <img src="assets/uptime2.png" alt="Server Uptime Monitoring">
                 <div class="gallery-overlay">
                     <h4>Automation WhatsApp</h4>
-                    <p>Monitoring Uptime Server</p>
+                    <p class="translate" data-id="Monitoring Uptime Server" data-en="Server Uptime Monitoring">Monitoring Uptime Server</p>
                 </div>
             </div>
 
-            <!-- Project Gambar 2 -->
             <div class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=600&q=80" alt="Automated Backup Scripts">
                 <div class="gallery-overlay">
-                    <h4>Automated Backup Scripts</h4>
+                    <h4 class="translate" data-id="Skrip Pencadangan Otomatis" data-en="Automated Backup Scripts">Skrip Pencadangan Otomatis</h4>
                     <p>Python & Bash Cloud Sync</p>
                 </div>
             </div>
 
-            <!-- Project Gambar 3 -->
             <div class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Vector Design Portfolio">
                 <div class="gallery-overlay">
-                    <h4>Vector Design & Media Support</h4>
+                    <h4 class="translate" data-id="Desain Vektor & Dukungan Media" data-en="Vector Design & Media Support">Desain Vektor & Dukungan Media</h4>
                     <p>Corel Draw & Illustrator</p>
                 </div>
             </div>
@@ -460,12 +639,64 @@
         </div>
     </section>
 
+    <!-- --- SECTION BARU: Terintegrasi Alat Penerjemah Otomatis --- -->
+    <section id="tools">
+        <h2 class="section-title translate" data-id="Alat Penerjemah Kerja" data-en="Quick Operations Translator">Alat Penerjemah Kerja</h2>
+        
+        <div class="translator-box">
+            <!-- Arah Bahasa -->
+            <div class="lang-control">
+                <div class="lang-label" id="srcLangLabel">
+                    <i class="fas fa-flag"></i> <span>Indonesia</span>
+                </div>
+                
+                <button class="swap-btn" id="swapLangBtn" title="Tukar Arah Bahasa">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+                
+                <div class="lang-label" id="targetLangLabel">
+                    <i class="fas fa-flag-usa"></i> <span>Inggris (English)</span>
+                </div>
+            </div>
+
+            <!-- Workspace Input Output -->
+            <div class="workspace">
+                <div class="box">
+                    <textarea id="inputText" placeholder="Ketik atau tempel teks di sini..."></textarea>
+                    <div class="box-actions">
+                        <button class="action-btn" id="clearBtn" title="Hapus"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <textarea id="outputText" placeholder="Hasil terjemahan..." readonly></textarea>
+                    <div class="loading-text" id="loadingIndicator">
+                        <i class="fas fa-spinner fa-spin"></i> Processing...
+                    </div>
+                    <div class="box-actions">
+                        <button class="action-btn" id="copyBtn" title="Salin"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="translate-action-row">
+                <button class="btn" id="translateBtn" style="color: #0f172a; padding: 0.6rem 1.5rem;">
+                    <span class="translate" data-id="Terjemahkan" data-en="Translate">Terjemahkan</span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact">
         <div class="contact-container">
-            <h2 class="section-title" style="margin-bottom: 2rem;">Contact</h2>
+            <h2 class="section-title translate" data-id="Kontak" data-en="Contact" style="margin-bottom: 2rem;">Kontak</h2>
             <div style="margin-bottom: 2rem;">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=suryapranata0a@gmail.com&su=Tanggapan%20Portofolio&body=Halo%20Surya%2C%20Saya%20sudah%20melihat%20Portofoliomu%0APesan%20%3A%20" class="btn" target="_blank"><i class="fas fa-envelope"></i> Send Email</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=suryapranata0a@gmail.com&su=Tanggapan%20Portofolio&body=Halo%20Surya%2C%20Saya%20sudah%20melihat%20Portofoliomu%0APesan%20%3A%20" class="btn" target="_blank">
+                    <i class="fas fa-envelope"></i> 
+                    <span class="translate" data-id="Kirim Email" data-en="Send Email">Kirim Email</span>
+                </a>
                 <a href="https://wa.me/6285339083147?text=Halo%20Surya,%20Saya%20sudah%20melihat%20Portofoliomu" class="btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
             </div>
             
@@ -480,5 +711,127 @@
         <p>&copy; 2026 Muhammad Pandu Suryapranata.</p>
     </footer>
 
+    <!-- --- JAVASCRIPT LOGIC (Dual Fungsi: Multi-bahasa Halaman & Kotak Alat Translator) --- -->
+    <script>
+        // --- 1. LOGIC UTAMA: SWITCH BAHASA SATU HALAMAN ---
+        const langBtn = document.getElementById('langBtn');
+        const langText = document.getElementById('langText');
+        const translateElements = document.querySelectorAll('.translate');
+        
+        let currentLang = localStorage.getItem('preferredLanguage') || 'id';
+
+        function applyLanguage(lang) {
+            translateElements.forEach(el => {
+                if (lang === 'en') {
+                    el.textContent = el.getAttribute('data-en');
+                } else {
+                    el.textContent = el.getAttribute('data-id');
+                }
+            });
+            langText.textContent = lang === 'en' ? 'ID' : 'EN';
+            document.documentElement.setAttribute('lang', lang);
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        applyLanguage(currentLang);
+
+        langBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            applyLanguage(currentLang);
+        });
+
+
+        // --- 2. LOGIC KEDUA: KOTAK OPERASI TRANSLATOR OTOMATIS ---
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+        const translateBtn = document.getElementById('translateBtn');
+        const swapLangBtn = document.getElementById('swapLangBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const srcLangLabel = document.getElementById('srcLangLabel');
+        const targetLangLabel = document.getElementById('targetLangLabel');
+
+        let toolSourceLang = 'id';
+        let toolTargetLang = 'en';
+
+        // Fungsi menukar arah bahasa pada kotak translator
+        swapLangBtn.addEventListener('click', () => {
+            const temp = toolSourceLang;
+            toolSourceLang = toolTargetLang;
+            toolTargetLang = temp;
+
+            if (toolSourceLang === 'id') {
+                srcLangLabel.innerHTML = `<i class="fas fa-flag"></i> <span>Indonesia</span>`;
+                targetLangLabel.innerHTML = `<i class="fas fa-flag-usa"></i> <span>Inggris (English)</span>`;
+                inputText.placeholder = "Ketik atau tempel teks di sini...";
+            } else {
+                srcLangLabel.innerHTML = `<i class="fas fa-flag-usa"></i> <span>Inggris (English)</span>`;
+                targetLangLabel.innerHTML = `<i class="fas fa-flag"></i> <span>Indonesia</span>`;
+                inputText.placeholder = "Type or paste text here...";
+            }
+
+            const tempText = inputText.value;
+            inputText.value = outputText.value;
+            outputText.value = tempText;
+        });
+
+        // Eksekusi API Translator
+        async function performTranslation() {
+            const text = inputText.value.trim();
+            if (!text) return;
+
+            loadingIndicator.style.display = 'flex';
+            outputText.value = '';
+
+            try {
+                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${toolSourceLang}&tl=${toolTargetLang}&dt=t&q=${encodeURIComponent(text)}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                let translatedText = "";
+                data[0].forEach(sentence => {
+                    if (sentence[0]) translatedText += sentence[0];
+                });
+
+                outputText.value = translatedText;
+            } catch (error) {
+                console.error("Gagal terjemah:", error);
+                outputText.value = "Koneksi terputus atau gagal mengambil data.";
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+
+        translateBtn.addEventListener('click', performTranslation);
+
+        // Shortcut keyboard Ctrl + Enter
+        inputText.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                performTranslation();
+            }
+        });
+
+        // Hapus teks kolom input
+        clearBtn.addEventListener('click', () => {
+            inputText.value = '';
+            outputText.value = '';
+            inputText.focus();
+        });
+
+        // Copy teks hasil terjemahan
+        copyBtn.addEventListener('click', () => {
+            if (outputText.value) {
+                navigator.clipboard.writeText(outputText.value);
+                const icon = copyBtn.querySelector('i');
+                icon.className = 'fas fa-check';
+                icon.style.color = '#4ade80';
+                setTimeout(() => {
+                    icon.className = 'fas fa-copy';
+                    icon.style.color = '';
+                }, 1500);
+            }
+        });
+    </script>
 </body>
 </html>
