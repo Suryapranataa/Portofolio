@@ -111,16 +111,6 @@
             align-items: flex-start;
         }
 
-        .hero-badge {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
         #hero h1 {
             font-size: 3.5rem;
             font-weight: 700;
@@ -133,13 +123,6 @@
             color: var(--text-muted);
             font-weight: 500;
             margin-bottom: 1.5rem;
-        }
-
-        #hero p {
-            max-width: 600px;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            font-size: 1.1rem;
         }
 
         .btn {
@@ -167,11 +150,6 @@
             gap: 4rem;
         }
 
-        @media (max-width: 768px) {
-            .about-content { grid-template-columns: 1fr; gap: 2rem; }
-            #hero h1 { font-size: 2.5rem; }
-        }
-
         .skills-grid {
             display: flex;
             flex-wrap: wrap;
@@ -194,7 +172,7 @@
             color: var(--accent);
         }
 
-        /* Projects Grid */
+        /* Experience Grid */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -250,18 +228,62 @@
             border-radius: 4px;
         }
 
-        .project-link {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+        /* --- BARU: Gallery Showcase Section --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
-        .project-link:hover {
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            aspect-ratio: 16 / 10;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.95));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h4 {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.85rem;
             color: var(--accent);
+            font-weight: 500;
         }
 
         /* Contact Section */
@@ -289,7 +311,6 @@
             transform: scale(1.1);
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 3rem 2rem;
@@ -297,6 +318,12 @@
             color: var(--text-muted);
             border-top: 1px solid #334155;
             margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-content { grid-template-columns: 1fr; gap: 2rem; }
+            #hero h1 { font-size: 2.5rem; }
+            .contact-container .btn { display: block; margin: 1rem auto; width: fit-content; }
         }
     </style>
 </head>
@@ -308,7 +335,8 @@
             <a href="#" class="logo">Muhammad Pandu Suryapranata</a>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
-                <li><a href="#projects">Experience</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -344,22 +372,22 @@
                     <div class="skill-tag"><i class="fas fa-desktop"></i> Zabbix</div>
                     <div class="skill-tag"><i class="fas fa-file-word"></i> Ms Office</div>
                     <div class="skill-tag"><i class="fas fa-palette"></i> Corel Draw</div>
-                    <div class="skill-tag"><i class="fab fa-adobe"></i> Adobe Illustrator</div>
+                    <div class="skill-tag"><i class="fas fa-pen-nib"></i> Adobe Illustrator</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects">
+    <!-- Experience Section -->
+    <section id="experience">
         <h2 class="section-title">Experience</h2>
         <div class="projects-grid">
             
-            <!-- Project 1 -->
+            <!-- Job 1 -->
             <div class="project-card">
                 <div>
                     <div class="project-icon"><i class="fas fa-tasks"></i></div>
-                    <h3>Administration at PUPR Goverment</h3>
+                    <h3>Administration at PUPR Government</h3>
                     <p>Handled office administration tasks while providing comprehensive IT support for computer networks and other technical issues. Additionally, served as media support responsible for documenting company events and activities.</p>
                 </div>
                 <div>
@@ -371,12 +399,12 @@
                 </div>
             </div>
 
-            <!-- Project 2 -->
+            <!-- Job 2 -->
             <div class="project-card">
                 <div>
                     <div class="project-icon"><i class="fas fa-cogs"></i></div>
                     <h3>IT Engineer at Bank</h3>
-                    <p>was placed at the BRI Data Center as part of the application operations team. Besides managing the apps, I also handled troubleshooting whenever there was an error. Before fixing a problem, I usually checked the server or database logs to find out what caused it. I also built an internal website to store IDs and passwords it allows the team to copy-paste passwords for internal links and servers easily without actually revealing the text.</p>
+                    <p>Was placed at the BRI Data Center as part of the application operations team. Besides managing the apps, I also handled troubleshooting whenever there was an error. Before fixing a problem, I usually checked the server or database logs to find out what caused it. I also built an internal website to store IDs and passwords it allows the team to copy-paste passwords for internal links and servers easily without actually revealing the text.</p>
                 </div>
                 <div>
                     <div class="project-tech">
@@ -397,16 +425,53 @@
         </div>
     </section>
 
+    <!-- --- BARU: Menu Gambar Project (Showcase Gallery) --- -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="gallery-grid">
+            
+            <!-- Project Gambar 1 -->
+            <div class="gallery-item">
+                <!-- Ganti src dengan link atau path gambar dashboard/project asli milikmu -->
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Server Monitoring Dashboard">
+                <div class="gallery-overlay">
+                    <h4>Server Monitoring Dashboard</h4>
+                    <p>Grafana & Zabbix Infrastructure</p>
+                </div>
+            </div>
+
+            <!-- Project Gambar 2 -->
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=600&q=80" alt="Automated Backup Scripts">
+                <div class="gallery-overlay">
+                    <h4>Automated Backup Scripts</h4>
+                    <p>Python & Bash Cloud Sync</p>
+                </div>
+            </div>
+
+            <!-- Project Gambar 3 -->
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Vector Design Portfolio">
+                <div class="gallery-overlay">
+                    <h4>Vector Design & Media Support</h4>
+                    <p>Corel Draw & Illustrator</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact">
         <div class="contact-container">
-            <h2 class="section-title margin-bottom: 2rem;">Contact</h2>
-            <br></br>
-            <a href="mailto:suryapranata0a@gmail.com" class="btn"><i class="fas fa-envelope"></i> Send Email</a>
-            <a href="https://wa.me/6285339083147?text=Halo%20Surya,%20Saya%20sudah%20melihat%20Portofoliomu" class="btn"><i class="fa-whatsapp"></i> WhatsApp</a>
+            <h2 class="section-title" style="margin-bottom: 2rem;">Contact</h2>
+            <div style="margin-bottom: 2rem;">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=suryapranata0a@gmail.com&su=Tanggapan%20Portofolio&body=Halo%20Surya%2C%20Saya%20sudah%20melihat%20Portofoliomu%0APesan%20%3A%20" class="btn" target="_blank"><i class="fas fa-envelope"></i> Send Email</a>
+                <a href="https://wa.me/6285339083147?text=Halo%20Surya,%20Saya%20sudah%20melihat%20Portofoliomu" class="btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
             
             <div class="contact-socials">
-                <a href="www.linkedin.com/in/muhammad-pandu-suryapranata-89511a274" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.linkedin.com/in/muhammad-pandu-suryapranata-89511a274" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
             </div>
         </div>
     </section>
